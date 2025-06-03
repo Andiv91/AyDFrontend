@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { Box, Typography, MenuItem, Select, List, ListItem, ListItemText, Chip, CircularProgress } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -12,11 +13,11 @@ export default function ViewStudents() {
 
   useEffect(() => {
     // Obtener usuario actual y luego filtrar actividades por profesor
-    fetch('http://localhost:8080/api/user/me', { credentials: 'include' })
+    fetch(`${API_URL}/api/user/me`, { credentials: 'include' })
       .then(res => res.json())
       .then(user => {
         setCurrentUser(user);
-        fetch('http://localhost:8080/api/activities', { credentials: 'include' })
+        fetch(`${API_URL}/api/activities`, { credentials: 'include' })
           .then(res => res.json())
           .then(data => setActivities(data.filter(a => a.teacher && a.teacher.id === user.id)));
       });
@@ -25,7 +26,7 @@ export default function ViewStudents() {
   useEffect(() => {
     if (!selectedActivity) return;
     setLoading(true);
-    fetch(`http://localhost:8080/api/submissions/activity/${selectedActivity}`, { credentials: 'include' })
+    fetch(`${API_URL}/api/submissions/activity/${selectedActivity}`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => setSubmissions(data))
       .finally(() => setLoading(false));

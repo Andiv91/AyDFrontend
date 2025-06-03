@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { Box, Typography, List, ListItem, ListItemText, Chip, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
@@ -13,12 +14,12 @@ export default function StudentExercises() {
 
   useEffect(() => {
     // Obtener usuario actual
-    fetch('http://localhost:8080/api/user/me', { credentials: 'include' })
+    fetch(`${API_URL}/api/user/me`, { credentials: 'include' })
       .then(res => res.json())
       .then(user => {
         setCurrentUser(user);
         // Obtener submissions del estudiante
-        return fetch(`http://localhost:8080/api/submissions/student/${user.id}`, { credentials: 'include' });
+        return fetch(`${API_URL}/api/submissions/student/${user.id}`, { credentials: 'include' });
       })
       .then(res => res.json())
       .then(subs => {
@@ -29,7 +30,7 @@ export default function StudentExercises() {
         }, {}));
         setSubmissions(latestSubs);
         // Obtener todas las actividades para mapear info
-        return fetch('http://localhost:8080/api/activities', { credentials: 'include' });
+        return fetch(`${API_URL}/api/activities`, { credentials: 'include' });
       })
       .then(res => res.json())
       .then(acts => setActivities(acts))

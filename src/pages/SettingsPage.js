@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { API_URL } from '../config';
 import { Box, Typography, Switch, FormControlLabel, TextField, Button, Paper, Alert } from '@mui/material';
 import { ThemeContext } from '../theme/ThemeContext';
 
@@ -10,7 +11,7 @@ export default function SettingsPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/user/me', { credentials: 'include' })
+    fetch(`${API_URL}/api/user/me`, { credentials: 'include' })
       .then(res => res.json())
       .then(user => {
         setName(user.name);
@@ -26,7 +27,7 @@ export default function SettingsPage() {
     setError('');
     setSuccess(false);
     try {
-      const res = await fetch('http://localhost:8080/api/user/me', {
+      const res = await fetch(`${API_URL}/api/user/me`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

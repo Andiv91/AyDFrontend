@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { Box, Typography, List, ListItem, ListItemText, IconButton, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -14,7 +15,7 @@ export default function TeacherExercisesPage() {
   const theme = useTheme();
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/activities', { credentials: 'include' })
+    fetch(`${API_URL}/api/activities`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => setExercises(data.filter(e => e.teacher)))
       .finally(() => setLoading(false));
@@ -31,7 +32,7 @@ export default function TeacherExercisesPage() {
   };
 
   const confirmDelete = () => {
-    fetch(`http://localhost:8080/api/activities/${deleteId}`, {
+    fetch(`${API_URL}/api/activities/${deleteId}`, {
       method: 'DELETE',
       credentials: 'include',
     })

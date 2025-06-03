@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, List, ListItem, ListItemText, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 
 export default function FavoritesPage() {
   const [favorites, setFavorites] = useState([]);
@@ -8,7 +9,7 @@ export default function FavoritesPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/favorites/student/me', { credentials: 'include' })
+    fetch(`${API_URL}/api/favorites/student/me`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography, MenuItem, Alert, CircularProgress } from '@mui/material';
+import { API_URL } from '../config';
 
 const difficulties = [
   { value: 'Fácil', label: 'Fácil' },
@@ -21,7 +22,7 @@ export default function EditExercise() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/activities`, { credentials: 'include' })
+    fetch(`${API_URL}/api/activities`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         const exercise = data.find(e => e.id === Number(id));
@@ -41,7 +42,7 @@ export default function EditExercise() {
     setError('');
     setSuccess(false);
     try {
-      const res = await fetch(`http://localhost:8080/api/activities/${id}`, {
+      const res = await fetch(`${API_URL}/api/activities/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { useParams, useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemText, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Snackbar, Alert } from '@mui/material';
 
@@ -14,11 +15,11 @@ export default function ProfesorEjercicios() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/profesores/${profesorId}`, { credentials: 'include' })
+    fetch(`${API_URL}/api/profesores/${profesorId}`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => setProfesor(data));
 
-    fetch(`http://localhost:8080/api/activities/teacher/${profesorId}`, { credentials: 'include' })
+    fetch(`${API_URL}/api/activities/teacher/${profesorId}`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => setEjercicios(data));
   }, [profesorId]);
@@ -39,7 +40,7 @@ export default function ProfesorEjercicios() {
     if (!mensaje.trim()) return;
     setSending(true);
     try {
-      const res = await fetch('http://localhost:8080/api/messages', {
+      const res = await fetch(`${API_URL}/api/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

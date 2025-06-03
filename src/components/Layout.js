@@ -15,6 +15,8 @@ import logo from '../pictures/python.png';
 import { useTheme } from '@mui/material/styles';
 import MensajesProfesor from '../pages/MensajesProfesor';
 import MensajesEstudiante from '../pages/MensajesEstudiante';
+import { API_URL } from '../config';
+
 
 const drawerWidth = 220;
 
@@ -28,7 +30,7 @@ export default function Layout({ children }) {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/user/me', {
+        const response = await fetch(`${API_URL}/api/user/me`, {
           credentials: 'include'
         });
         

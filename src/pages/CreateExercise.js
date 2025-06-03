@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, MenuItem, Alert } from '@mui/material';
+import { API_URL } from '../config';
 
 const difficulties = [
   { value: 'Fácil', label: 'Fácil' },
@@ -22,7 +23,7 @@ export default function CreateExercise() {
     setError('');
     setSuccess(false);
     try {
-      const res = await fetch('http://localhost:8080/api/activities', {
+      const res = await fetch(`${API_URL}/api/activities`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

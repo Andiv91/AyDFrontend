@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +8,7 @@ export default function ProfesoresList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/profesores', { credentials: 'include' })
+    fetch(`${API_URL}/api/profesores`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => setProfesores(data));
   }, []);

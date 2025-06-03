@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Typography, Paper, CircularProgress, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Snackbar, Alert } from '@mui/material';
 import PythonExecutor from '../components/PythonExecutor';
+import { API_URL } from '../config';
+
 
 export default function ExerciseAttempt() {
   const { activityId } = useParams();
@@ -17,7 +19,7 @@ export default function ExerciseAttempt() {
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/activities', { credentials: 'include' })
+    fetch(`${API_URL}/api/activities`, { credentials: 'include' })
       .then(res => res.json())
       .then(activities => {
         const found = activities.find(a => a.id === Number(activityId));
@@ -27,7 +29,7 @@ export default function ExerciseAttempt() {
   }, [activityId]);
 
   const fetchFavoriteStatus = () => {
-    fetch(`http://localhost:8080/api/favorites/activity/${activityId}`, { credentials: 'include' })
+    fetch(`${API_URL}/api/favorites/activity/${activityId}`, { credentials: 'include' })
       .then(res => res.ok ? res.json() : null)
       .then(data => {
         // Si el backend devuelve un objeto favorito, null o false
@@ -43,7 +45,7 @@ export default function ExerciseAttempt() {
     setFavoriteLoading(true);
     setIsFavorite(true); // Actualiza localmente de inmediato
     setJustAdded(true);
-    await fetch(`http://localhost:8080/api/favorites/${activityId}`, {
+    await fetch(`${API_URL}/api/favorites/${activityId}`, {
       method: 'POST',
       credentials: 'include',
     });
@@ -55,7 +57,7 @@ export default function ExerciseAttempt() {
   const handleRemoveFavorite = async () => {
     setFavoriteLoading(true);
     setIsFavorite(false); // Actualiza localmente de inmediato
-    await fetch(`http://localhost:8080/api/favorites/${activityId}`, {
+    await fetch(`${API_URL}/api/favorites/${activityId}`, {
       method: 'DELETE',
       credentials: 'include',
     });
@@ -77,7 +79,7 @@ export default function ExerciseAttempt() {
     if (!mensaje.trim() || !activity) return;
     setSending(true);
     try {
-      const res = await fetch('http://localhost:8080/api/messages', {
+      const res = await fetch(`${API_URL}/api/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

@@ -3,6 +3,7 @@ import { Box, Typography, Paper, List, ListItem, ListItemText, Chip, CircularPro
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { API_URL } from '../config';
 
 export default function ChatConversacion() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function ChatConversacion() {
   useEffect(() => {
     if (!activityId || !otherUserId) return;
     setLoading(true);
-    fetch(`http://localhost:8080/api/messages/conversation?activityId=${activityId}&userId=${otherUserId}`, { credentials: 'include' })
+    fetch(`${API_URL}/api/messages/conversation?activityId=${activityId}&userId=${otherUserId}`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => setMensajes(Array.isArray(data) ? data : []))
       .finally(() => setLoading(false));
@@ -37,7 +38,7 @@ export default function ChatConversacion() {
     setSending(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:8080/api/messages', {
+      const res = await fetch(`${API_URL}/api/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -50,7 +51,7 @@ export default function ChatConversacion() {
       if (!res.ok) throw new Error('Error al enviar el mensaje');
       setNuevoMensaje('');
       // Refrescar mensajes
-      fetch(`http://localhost:8080/api/messages/conversation?activityId=${activityId}&userId=${otherUserId}`, { credentials: 'include' })
+      fetch(`${API_URL}/api/messages/conversation?activityId=${activityId}&userId=${otherUserId}`, { credentials: 'include' })
         .then(res => res.json())
         .then(data => setMensajes(Array.isArray(data) ? data : []));
     } catch (err) {
@@ -62,7 +63,7 @@ export default function ChatConversacion() {
   const handleDeleteConversation = async () => {
     if (!window.confirm('¿Seguro que quieres borrar toda la conversación?')) return;
     try {
-      await fetch(`http://localhost:8080/api/messages/conversation?activityId=${activityId}&userId=${otherUserId}`, {
+      await fetch(`${API_URL}/api/messages/conversation?activityId=${activityId}&userId=${otherUserId}`, {
         method: 'DELETE',
         credentials: 'include',
       });

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { API_URL } from '../config';
 import { 
   Box, 
   Container, 
@@ -65,7 +66,7 @@ function LoginPage() {
     try {
       console.log('Enviando datos de login:', { email, password, role });
       
-      const response = await fetch(`http://localhost:8080/api/auth/login?role=${role}`, {
+      const response = await fetch(`${API_URL}/api/auth/login?role=${role}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -88,13 +89,13 @@ function LoginPage() {
         // Verificar el estado de autenticación
         console.log('Login exitoso, verificando estado de autenticación...');
         try {
-          const authStatus = await fetch('http://localhost:8080/api/auth-status', {
+          const authStatus = await fetch(`${API_URL}/api/auth-status`, {
             credentials: 'include'
           }).then(res => res.json());
           
           console.log('Estado de autenticación:', authStatus);
           
-          const userMe = await fetch('http://localhost:8080/api/user/me', {
+          const userMe = await fetch(`${API_URL}/api/user/me`, {
             credentials: 'include'
           }).then(res => res.json());
           
@@ -118,7 +119,7 @@ function LoginPage() {
   const handleGoogleLogin = async () => {
     try {
       // Primero establecemos el rol para la sesión
-      const roleResponse = await fetch(`http://localhost:8080/api/auth/set-role?role=${role}`, {
+      const roleResponse = await fetch(`${API_URL}/api/auth/set-role?role=${role}`, {
         method: 'POST',
         credentials: 'include'
       });
@@ -126,7 +127,7 @@ function LoginPage() {
       console.log('Respuesta de set-role:', roleResponse);
       
       // Luego redirigimos a la URL de autenticación de Google
-      window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+      window.location.href = `${API_URL}/oauth2/authorization/google`;
     } catch (err) {
       console.error('Error al intentar iniciar sesión con Google:', err);
       setError('Error al intentar iniciar sesión con Google');

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AceEditor from 'react-ace';
+import { API_URL } from '../config';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/theme-monokai';
 
@@ -15,7 +16,7 @@ export default function PythonExecutor({ expectedOutput = "Hello, World!", activ
     if (!activityId) return;
     console.log('Guardando submission para actividad', activityId, 'con output:', outputToSave);
     try {
-      await fetch(`http://localhost:8080/api/submissions/${activityId}`, {
+      await fetch(`${API_URL}/api/submissions/${activityId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -29,11 +30,12 @@ export default function PythonExecutor({ expectedOutput = "Hello, World!", activ
     }
   };
   const handleRun = async () => {
+    console.log("¡Botón ejecutar presionado!");
     setLoading(true);
     setSuccess(false);
     setOutput('');
     try {
-      const response = await fetch('http://localhost:8080/api/python/execute', {
+      const response = await fetch(`${API_URL}/api/python/execute`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

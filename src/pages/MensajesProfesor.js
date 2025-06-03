@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Paper, List, ListItem, ListItemText, Chip, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 import { useTheme } from '@mui/material/styles';
 import { useEffect as useEffectReact, useState as useStateReact } from 'react';
 
@@ -12,13 +13,13 @@ export default function MensajesProfesor() {
   const theme = useTheme();
 
   useEffectReact(() => {
-    fetch('http://localhost:8080/api/user/me', { credentials: 'include' })
+    fetch(`${API_URL}/api/user/me`, { credentials: 'include' })
       .then(res => res.json())
       .then(user => setCurrentUser(user));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/messages/received', { credentials: 'include' })
+    fetch(`${API_URL}/api/messages/received`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => setMensajes(data))
       .finally(() => setLoading(false));
