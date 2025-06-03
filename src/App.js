@@ -127,7 +127,7 @@ function App() {
               <Route path="/favoritos" element={<ProtectedRoute><Layout><FavoritesPage /></Layout></ProtectedRoute>} />
               <Route path="/mensajes" element={<ProtectedRoute><Layout><MensajesEstudiante /></Layout></ProtectedRoute>} />
               <Route path="/mensajes-estudiante" element={<ProtectedRoute><Layout><MensajesEstudiante /></Layout></ProtectedRoute>} />
-              <Route path="/ajustes" element={<ProtectedRoute><Layout><div>Ajustes Estudiante</div></Layout></ProtectedRoute>} />
+              <Route path="/ajustes" element={<ProtectedRoute><Layout><SettingsPage /></Layout></ProtectedRoute>} />
               <Route path="/ayuda" element={<HelpPage />} />
               <Route path="/contacto" element={<ContactPage />} />
               <Route path="/chat" element={<ProtectedRoute><Layout><ChatConversacion /></Layout></ProtectedRoute>} />
