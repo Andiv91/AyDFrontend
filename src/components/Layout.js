@@ -341,14 +341,33 @@ export default function Layout({ children }) {
           <Box
             component={RouterLink}
             to="/ayuda"
-            sx={{ color: theme.palette.text.secondary, textDecoration: 'none', cursor: 'pointer', fontWeight: 'bold', display: 'block', textAlign: 'center', mb: 0.5, '&:hover': { color: theme.palette.text.primary } }}
+            sx={{
+              color: '#fff',
+              textDecoration: 'none',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              display: 'block',
+              textAlign: 'center',
+              mb: 0.5,
+              fontFamily: 'Poppins, sans-serif',
+              '&:hover': { color: theme.palette.text.primary }
+            }}
           >
             Ayuda
           </Box>
           <Box
             component={RouterLink}
             to="/contacto"
-            sx={{ color: theme.palette.text.secondary, textDecoration: 'none', cursor: 'pointer', fontWeight: 'bold', display: 'block', textAlign: 'center', '&:hover': { color: theme.palette.text.primary } }}
+            sx={{
+              color: '#fff',
+              textDecoration: 'none',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              display: 'block',
+              textAlign: 'center',
+              fontFamily: 'Poppins, sans-serif',
+              '&:hover': { color: theme.palette.text.primary }
+            }}
           >
             Contáctanos
           </Box>
