@@ -197,7 +197,7 @@ function LoginPage() {
                 </Button>
                 
                 <Typography variant="body2" align="center" sx={{ mt: 2, color: '#fff' }}>
-                  ¿No tienes una contraseña? <Link to="/register" style={{ color: '#fff', textDecoration: 'underline' }}>Regístrate aquí</Link>
+                  ¿No tienes cuenta? <Link to="/register" style={{ color: '#fff', textDecoration: 'underline' }}>Regístrate aquí</Link>
                 </Typography>
               </CardContent>
             </Card>
